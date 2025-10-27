@@ -1,0 +1,35 @@
+name: Tag on Merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  tag-release:
+    if: >
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'bump/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+
+      - name: Get tag name from branch
+        id: get_tag
+        run: |
+          # Branch name is "bump/v1.2.3", we just want "v1.2.3"
+          TAG_NAME=$(echo ${{ github.event.pull_request.head.ref }} | cut -d'/' -f2)
+          echo "tag=${TAG_NAME}" >> $GITHUB_OUTPUT
+      
+      - name: Create and push tag
+        run: |
+          TAG=${{ steps.get_tag.outputs.tag }}
+          echo "Creating tag ${TAG} for commit ${{ github.event.pull_request.merge_commit_sha }}"
+          git tag $TAG
+          git push origin $TAG
