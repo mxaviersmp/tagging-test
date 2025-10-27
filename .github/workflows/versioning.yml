@@ -34,7 +34,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-
+          commit-message: "Bump version: ${{ steps.bump.outputs.previous-version }} → ${{ steps.bump.outputs.current-version }}"
           title: "Bump version to ${{ steps.bump.outputs.current-version }}"
           body: |
             This PR bumps the version from ${{ steps.bump.outputs.previous-version }} to ${{ steps.bump.outputs.current-version }}.
