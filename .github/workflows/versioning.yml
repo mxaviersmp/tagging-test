@@ -42,6 +42,8 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ steps.get_token.outputs.token }}
+          author: "versioning pr bot[bot] <my-org-cla-bots@googlegroups.com>"
+          commiter: "versioning pr bot[bot] <my-org-cla-bots@googlegroups.com>"
           commit-message: "Bump version: ${{ steps.bump.outputs.previous-version }} → ${{ steps.bump.outputs.current-version }}"
           title: "Bump version to ${{ steps.bump.outputs.current-version }}"
           body: |
