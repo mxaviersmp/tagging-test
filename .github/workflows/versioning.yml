@@ -24,6 +24,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          
+      - name: Generate APP Token
+        id: get_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          
       - name: Bump version files
         id: bump
         uses: callowayproject/bump-my-version@master
@@ -33,14 +41,13 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.get_token.outputs.token }}
           commit-message: "Bump version: ${{ steps.bump.outputs.previous-version }} → ${{ steps.bump.outputs.current-version }}"
           title: "Bump version to ${{ steps.bump.outputs.current-version }}"
           body: |
             This PR bumps the version from ${{ steps.bump.outputs.previous-version }} to ${{ steps.bump.outputs.current-version }}.
             
             Once merged, the commit on `main` will be tagged automatically.
-          
           branch: "bump/v${{ steps.bump.outputs.current-version }}"
           base: main
           labels: "version-bump"
