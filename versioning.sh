@@ -9,13 +9,11 @@ if [[ "$BUMP_TYPE" != "patch" && "$BUMP_TYPE" != "minor" && "$BUMP_TYPE" != "maj
   exit 1
 fi
 
-# 2. Verifica se 'bump-my-version' está instalado
 if ! command -v bump-my-version &> /dev/null; then
     echo "[ERROR] 'bump-my-version' not found (pip install bump-my-version)"
     exit 1
 fi
 
-# 3. Verifica se há alterações não salvas (git status limpo)
 if ! git diff-index --quiet HEAD --; then
     echo "[Error] Working tree is dirty. Commit or stash first."
     exit 1
