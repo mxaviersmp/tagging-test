@@ -7,7 +7,7 @@ handle_error() {
   git checkout . 2>/dev/null || true
   
   if [ -n "$ORIGINAL_BRANCH" ]; then
-      echo "🔙 Returning to '$ORIGINAL_BRANCH'..."
+      echo "Returning to '$ORIGINAL_BRANCH'..."
       git checkout "$ORIGINAL_BRANCH" 2>/dev/null || true
   fi
   exit 1
