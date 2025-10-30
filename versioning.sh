@@ -47,7 +47,7 @@ echo "Versão anterior: $OLD_VERSION"
 # 6. Roda o comando de bump (isso modifica os arquivos de versão)
 # Usamos --no-commit e --no-tag para replicar a lógica da GHA
 echo "📈 Incrementando versão ($BUMP_TYPE)..."
-bump-my-version $BUMP_TYPE --no-commit --no-tag
+bump-my-version bump $BUMP_TYPE --no-commit --no-tag
 
 # 7. Pega a nova versão DEPOIS do bump
 NEW_VERSION=$(bump-my-version current)
