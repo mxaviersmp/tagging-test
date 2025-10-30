@@ -82,7 +82,5 @@ gh pr create \
   --base "$MAIN_BRANCH" \
   --label "$PR_LABEL"
 
-trap -ERR
-
 git checkout $ORIGINAL_BRANCH
 echo "Done!"
