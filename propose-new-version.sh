@@ -1,6 +1,20 @@
 #!/bin/bash
 set -e
 
+handle_error() {
+  echo ""
+  echo "An error occurred. Reverting changes..."
+  git checkout . 2>/dev/null || true
+  
+  if [ -n "$ORIGINAL_BRANCH" ]; then
+      echo "🔙 Returning to '$ORIGINAL_BRANCH'..."
+      git checkout "$ORIGINAL_BRANCH" 2>/dev/null || true
+  fi
+  exit 1
+}
+
+trap 'handle_error' ERR
+
 MAIN_BRANCH="main"
 PR_LABEL="version-bump"
 
@@ -67,6 +81,8 @@ gh pr create \
   --body "$PR_BODY" \
   --base "$MAIN_BRANCH" \
   --label "$PR_LABEL"
+
+trap -ERR
 
 git checkout $ORIGINAL_BRANCH
 echo "Done!"
