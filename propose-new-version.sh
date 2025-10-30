@@ -10,6 +10,11 @@ handle_error() {
       echo "Returning to '$ORIGINAL_BRANCH'..."
       git checkout "$ORIGINAL_BRANCH" 2>/dev/null || true
   fi
+
+  if [ -n "$BRANCH_NAME" ]; then
+      git branch -D "$BRANCH_NAME" 2>/dev/null || true
+  fi
+
   exit 1
 }
 
