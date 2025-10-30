@@ -33,6 +33,7 @@ fi
 
 ORIGINAL_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 echo "Sync with branch '$MAIN_BRANCH'..."
+git fetch origin
 git checkout $MAIN_BRANCH
 git pull origin $MAIN_BRANCH
 
