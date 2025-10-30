@@ -50,7 +50,7 @@ echo "📈 Incrementando versão ($BUMP_TYPE)..."
 bump-my-version bump $BUMP_TYPE --no-commit --no-tag
 
 # 7. Pega a nova versão DEPOIS do bump
-NEW_VERSION=$(bump-my-version current)
+NEW_VERSION=$(bump-my-version show current_version)
 if [ "$OLD_VERSION" == "$NEW_VERSION" ]; then
   echo "❌ Erro: A versão não foi alterada. Verifique sua configuração do 'bump-my-version'."
   git checkout . # Desfaz as alterações nos arquivos
