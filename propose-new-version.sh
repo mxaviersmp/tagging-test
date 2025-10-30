@@ -19,6 +19,7 @@ if ! git diff-index --quiet HEAD --; then
     exit 1
 fi
 
+ORIGINAL_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 echo "Sync with branch '$MAIN_BRANCH'..."
 git checkout $MAIN_BRANCH
 git pull origin $MAIN_BRANCH
@@ -44,4 +45,5 @@ COMMIT_MSG="Bump version: $OLD_VERSION -> $NEW_VERSION"
 git commit -am "$COMMIT_MSG"
 git push -u origin $BRANCH_NAME
 
+git checkout $ORIGINAL_BRANCH
 echo "Done!"
