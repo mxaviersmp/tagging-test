@@ -41,7 +41,7 @@ git pull origin $MAIN_BRANCH
 # --- Bump da Versão ---
 
 # 5. Pega a versão atual ANTES do bump
-OLD_VERSION=$(bump-my-version current)
+OLD_VERSION=$(bump-my-version show current_version)
 echo "Versão anterior: $OLD_VERSION"
 
 # 6. Roda o comando de bump (isso modifica os arquivos de versão)
