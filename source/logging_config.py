@@ -26,7 +26,7 @@ def setup_root_logger(level: int = logging.INFO) -> None:
     root_logger.setLevel(level)
     handler = logging.StreamHandler(sys.stdout)
 
-    if "K_SERCICE" in os.environ:
+    if "K_SERCICE" in os.environ or True:
         formatter = JsonFormatter()
     else:
         formatter = logging.Formatter(
