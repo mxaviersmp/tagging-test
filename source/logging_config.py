@@ -20,7 +20,7 @@ class JsonFormatter(logging.Formatter):
             log_entry["taskIndex"] = os.getenv("CLOUD_RUN_TASK_INDEX")
 
         if record.exc_info:
-            log_entry["stack"] = self.formatException(record.exc_info)
+            log_entry["message"] += "\n" + self.formatException(record.exc_info)
 
         return json.dumps(log_entry)
 
